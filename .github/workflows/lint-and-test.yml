@@ -1,0 +1,43 @@
+name: Lint and Test
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+on:
+  push:
+
+jobs:
+  lint:
+    name: Lint code with flake8
+    strategy:
+      matrix:
+        python-version: ['3.8', '3.9']
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v3
+        with:
+          python-version: ${{ matrix.python-version }}
+      - uses: abatilo/actions-poetry@v2.1.4
+      - name: Lint code
+        run: |
+          poetry install
+          poetry run flake8 -v
+
+  test:
+    name: Run unit tests by pytest
+    strategy:
+      matrix:
+        python-version: ['3.8', '3.9']
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v3
+        with:
+          python-version: ${{ matrix.python-version }}
+      - uses: abatilo/actions-poetry@v2.1.4
+      - name: Test code
+        run: |
+          poetry install
+          poetry run pytest -v
