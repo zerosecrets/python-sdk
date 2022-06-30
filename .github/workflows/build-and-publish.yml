@@ -81,7 +81,6 @@ jobs:
       - uses: abatilo/actions-poetry@v2.1.4
       - name: Build and publish
         run: |
-          poetry --version
           poetry install
           poetry build
 
