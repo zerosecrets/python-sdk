@@ -9,15 +9,17 @@ Python SDK for `Zero <https://tryzero.com>`_. Provides a clear and simple interf
 Installation
 --------
 
-.. code-block:: sh
+.. code:: sh
+
     poetry install zero-sdk
 
 Usage
 --------
 
-* Fetch your vendor secrets by passing your 'zero' token
+Fetch your vendor secrets by passing your 'zero' token
 
-.. code-block:: python
+.. code:: python
+
     import os
     from zero_sdk import zero
 
