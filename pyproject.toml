@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "zero_sdk"
-version = "0.1.7"
+version = "0.1.8"
 description = "zero client sdk"
 authors = ["kirill-ottofeller <kirill.korotkov@ottofeller.com>"]
 
