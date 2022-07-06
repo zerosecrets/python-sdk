@@ -1,13 +1,12 @@
 [tool.poetry]
 name = "zero_sdk"
-version = "0.1.8"
+version = "0.1.9"
 description = "zero client sdk"
 authors = ["kirill-ottofeller <kirill.korotkov@ottofeller.com>"]
 
 [tool.poetry.dependencies]
 python = ">=3.8"
 python-graphql-client = "0.4.3"
-toml = "^0.10.2"
 
 [tool.poetry.dev-dependencies]
 pytest = "7.1.2"
