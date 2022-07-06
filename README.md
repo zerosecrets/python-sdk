@@ -4,7 +4,9 @@
 Python SDK for [Zero](https://tryzero.com). Provides a clear and simple interface for the secrets manager GraphQL API.
 
 ## Installation
-`poetry install zero-sdk`
+```sh
+poetry install zero-sdk
+```
 
 ## Usage
 Fetch your vendor secrets by passing your `zero` token
