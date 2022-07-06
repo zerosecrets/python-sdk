@@ -11,7 +11,7 @@ Installation
 
 .. code:: sh
 
-    poetry install zero-sdk
+    poetry add zero-sdk
 
 Usage
 --------
