@@ -16,7 +16,7 @@ Installation
 Usage
 --------
 
-Fetch your vendor secrets by passing your 'zero' token
+Fetch your vendor secrets by passing your ``zero`` token
 
 .. code:: python
 
