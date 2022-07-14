@@ -45,11 +45,11 @@ class ZeroApiClient:
             raise AttributeError('Apis should be a list of strings')
 
 
-def zero(*, token: str, apis: List[str]) -> ZeroApiClient:
+def zero(*, token: str, pick: List[str]) -> ZeroApiClient:
     """Create a Zero API client"""
 
     assert type(token) is str, "Zero token should be str"
     assert len(token) > 0, "Zero token is required"
-    assert type(apis) is list, "Apis should be a list of strings"
+    assert type(pick) is list, "Apis should be a list of strings"
 
-    return ZeroApiClient("https://core.tryzero.com/v1/graphql", token, apis)
+    return ZeroApiClient("https://core.tryzero.com/v1/graphql", token, pick)
