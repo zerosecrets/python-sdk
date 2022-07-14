@@ -9,8 +9,8 @@ class ZeroApiClient:
     """The Zero API"""
 
     query = """
-        query Secrets($token: String!, $apis: [String!]) {
-            secrets(zeroToken: $token, pick: $apis) {
+        query Secrets($token: String!, $pick: [String!]) {
+            secrets(zeroToken: $token, pick: $pick) {
                 name
 
                 fields {
@@ -21,9 +21,9 @@ class ZeroApiClient:
         }
     """
 
-    def __init__(self, url: str, token: str, apis: List[str]):
+    def __init__(self, url: str, token: str, pick: List[str]):
         self.client = GraphqlClient(endpoint=url)
-        self.variables = {"token": token, "apis": apis}
+        self.variables = {"token": token, "pick": pick}
 
     def fetch(self) -> Dict[str, Dict[str, str]]:
         """Grab the secrets from the Zero API"""
@@ -42,7 +42,7 @@ class ZeroApiClient:
                 } for secret in response_body.get("data").get("secrets")
             }
         except AttributeError:
-            raise AttributeError('Apis should be a list of strings')
+            raise AttributeError('Pick should be a list of strings')
 
 
 def zero(*, token: str, pick: List[str]) -> ZeroApiClient:
@@ -50,6 +50,6 @@ def zero(*, token: str, pick: List[str]) -> ZeroApiClient:
 
     assert type(token) is str, "Zero token should be str"
     assert len(token) > 0, "Zero token is required"
-    assert type(pick) is list, "Apis should be a list of strings"
+    assert type(pick) is list, "Pick should be a list of strings"
 
     return ZeroApiClient("https://core.tryzero.com/v1/graphql", token, pick)

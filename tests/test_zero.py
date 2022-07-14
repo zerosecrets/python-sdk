@@ -9,7 +9,7 @@ API_RESPONSE_MOCK = {"data": {"secrets": [{"name": "test", "fields": [{"name": "
 
 class QueryMock(mock.MagicMock):
     async def __call__(self, *_, **kwargs):
-        if len(kwargs["variables"]["apis"]) == 0:
+        if len(kwargs["variables"]["pick"]) == 0:
             raise aiohttp.client_exceptions.ServerDisconnectedError
 
         if kwargs["variables"]["token"] == "token":
@@ -20,7 +20,7 @@ class QueryMock(mock.MagicMock):
 
 class TestZero:
     def test_non_empty_token_provided(self):
-        pytest.raises(AssertionError, zero, token="", apis=["aws"])
+        pytest.raises(AssertionError, zero, token="", pick=["aws"])
 
     @mock.patch("python_graphql_client.GraphqlClient.execute_async", new_callable=QueryMock)
     def test_response_body_structure(self, _):
