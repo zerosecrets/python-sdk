@@ -1,9 +1,6 @@
 ======
 Zero Python SDK
 ======
-
-Short intro.
---------
 Python SDK for `Zero <https://tryzero.com>`_. Provides a clear and simple interface for the secrets manager GraphQL API.
 
 Installation
