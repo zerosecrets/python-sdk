@@ -5,6 +5,10 @@ from typing import List, Dict
 from python_graphql_client import GraphqlClient
 
 
+class ZeroException(Exception):
+    pass
+
+
 class ZeroApiClient:
     """The Zero API"""
 
@@ -34,6 +38,9 @@ class ZeroApiClient:
                 variables=self.variables
             )
         )
+
+        if response_body.get('errors') is not None:
+            raise ZeroException(response_body.get('errors')[0].get('message'))
 
         try:
             return {

@@ -1,8 +1,7 @@
 from unittest import mock
-import aiohttp
 
 import pytest
-from zero_sdk import zero
+from zero_sdk import zero, ZeroException
 
 API_RESPONSE_MOCK = {"data": {"secrets": [{"name": "test", "fields": [{"name": "name", "value": "value"}]}]}}
 
@@ -10,7 +9,22 @@ API_RESPONSE_MOCK = {"data": {"secrets": [{"name": "test", "fields": [{"name": "
 class QueryMock(mock.MagicMock):
     async def __call__(self, *_, **kwargs):
         if len(kwargs["variables"]["pick"]) == 0:
-            raise aiohttp.client_exceptions.ServerDisconnectedError
+            return {
+                "data": None,
+
+                "errors": [
+                    {
+                        "message": 'Could not establish connection with database',
+                        "locations": [{"line": 2, "column": 2}],
+                        "path": ['secrets'],
+                        "extensions": {
+                            "internal_error":
+                                'Error occurred while creating a new object: error connecting to server:' +
+                                'Connection refused (os error 61)',
+                        },
+                    }
+                ]
+            }
 
         if kwargs["variables"]["token"] == "token":
             return API_RESPONSE_MOCK
@@ -38,5 +52,5 @@ class TestZero:
 
     @mock.patch("python_graphql_client.GraphqlClient.execute_async", new_callable=QueryMock)
     def test_raise_exception_if_fetch_failed(self, _):
-        with pytest.raises(aiohttp.client_exceptions.ServerDisconnectedError):
+        with pytest.raises(ZeroException):
             zero(token="token", pick=[]).fetch()
