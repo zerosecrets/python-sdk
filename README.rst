@@ -23,19 +23,19 @@ Fetch your vendor secrets by passing your ``zero`` token
     ZERO_TOKEN = os.getenv("ZERO_TOKEN")
 
     # {'aws': {'secret': 'value', 'secret2': 'value2'}}
-    print(zero(token=ZERO_TOKEN, pick=["aws"], caller_name=None).fetch())
+    print(zero(token=ZERO_TOKEN, pick=["aws"], caller_name="ci").fetch())
 
     # {'aws': {'secret': 'value', 'secret2': 'value2'}, 'googleCloud': {...}}
-    print(zero(token=ZERO_TOKEN, pick=["aws", "googleCloud"], caller_name=None).fetch())
+    print(zero(token=ZERO_TOKEN, pick=["aws", "googleCloud"], caller_name="stagingcluster").fetch())
 
     try:
         # empty token
-        print(zero(token="", pick=[], caller_name=None).fetch())
+        print(zero(token="", pick=[], caller_name="ci").fetch())
     except AssertionError as exception:
         print(exception)  # Apis should be a list of strings
 
     try:
         # apis is not a list of string
-        print(zero(token=ZERO_TOKEN, pick=[0], caller_name=None).fetch())
+        print(zero(token=ZERO_TOKEN, pick=[0], caller_name="stagingcluster").fetch())
     except AttributeError as exception:
         print(exception)  # Apis should be a list of strings
