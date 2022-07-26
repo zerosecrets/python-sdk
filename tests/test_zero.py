@@ -34,23 +34,25 @@ class QueryMock(mock.MagicMock):
 
 class TestZero:
     def test_non_empty_token_provided(self):
-        pytest.raises(AssertionError, zero, token="", pick=["aws"])
+        pytest.raises(AssertionError, zero, token="", pick=["aws"], caller_name=None)
 
     @mock.patch("python_graphql_client.GraphqlClient.execute_async", new_callable=QueryMock)
     def test_response_body_structure(self, _):
         assert zero(
             token="token",
-            pick=["aws"]
+            pick=["aws"],
+            caller_name=None,
         ).fetch() == {"test": {"name": "value"}}, "Response body is not as expected"
 
     @mock.patch("python_graphql_client.GraphqlClient.execute_async", new_callable=QueryMock)
     def test_empty_response_body_structure(self, _):
         assert zero(
             token="invalid token",
-            pick=["aws"]
+            pick=["aws"],
+            caller_name=None,
         ).fetch() == {}, "Response body is not as expected"
 
     @mock.patch("python_graphql_client.GraphqlClient.execute_async", new_callable=QueryMock)
     def test_raise_exception_if_fetch_failed(self, _):
         with pytest.raises(ZeroException):
-            zero(token="token", pick=[]).fetch()
+            zero(token="token", pick=[], caller_name=None).fetch()

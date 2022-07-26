@@ -1,6 +1,6 @@
 """Zero SDK for Python"""
 import asyncio
-from typing import List, Dict
+from typing import List, Dict, Optional
 
 from python_graphql_client import GraphqlClient
 
@@ -13,8 +13,8 @@ class ZeroApiClient:
     """The Zero API"""
 
     query = """
-        query Secrets($token: String!, $pick: [String!]) {
-            secrets(zeroToken: $token, pick: $pick) {
+        query Secrets($token: String!, $pick: [String!], callerName: String) {
+            secrets(zeroToken: $token, pick: $pick, callerName: $callerName) {
                 name
 
                 fields {
@@ -25,9 +25,9 @@ class ZeroApiClient:
         }
     """
 
-    def __init__(self, url: str, token: str, pick: List[str]):
+    def __init__(self, url: str, token: str, pick: List[str], caller_name: Optional[str]):
         self.client = GraphqlClient(endpoint=url)
-        self.variables = {"token": token, "pick": pick}
+        self.variables = {"token": token, "pick": pick, "callerName": caller_name}
 
     def fetch(self) -> Dict[str, Dict[str, str]]:
         """Grab the secrets from the Zero API"""
@@ -52,11 +52,11 @@ class ZeroApiClient:
             raise AttributeError('Pick should be a list of strings')
 
 
-def zero(*, token: str, pick: List[str]) -> ZeroApiClient:
+def zero(*, token: str, pick: List[str], caller_name: Optional[str]) -> ZeroApiClient:
     """Create a Zero API client"""
 
     assert type(token) is str, "Zero token should be str"
     assert len(token) > 0, "Zero token is required"
     assert type(pick) is list, "Pick should be a list of strings"
 
-    return ZeroApiClient("https://core.tryzero.com/v1/graphql", token, pick)
+    return ZeroApiClient("https://core.tryzero.com/v1/graphql", token, pick, caller_name)
