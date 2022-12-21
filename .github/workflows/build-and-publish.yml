@@ -83,6 +83,4 @@ jobs:
       - name: Install deps
         run: poetry install
       - name: Build and publish
-        run: |
-          poetry install
-          poetry publish -u "__token__" -p {{ secrets.PYPI_TOKEN }} --build
+        run: poetry publish -u "__token__" -p {{ secrets.PYPI_TOKEN }} --build
