@@ -1,7 +1,7 @@
 from unittest import mock
 
 import pytest
-from zero_sdk import zero, ZeroException
+from zero_python_sdk import zero, ZeroException
 
 API_RESPONSE_MOCK = {"data": {"secrets": [{"name": "test", "fields": [{"name": "name", "value": "value"}]}]}}
 
