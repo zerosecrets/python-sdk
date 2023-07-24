@@ -8,7 +8,7 @@ Installation
 
 .. code:: sh
 
-    poetry add zero-sdk
+    poetry add zero-python-sdk
 
 Usage
 --------
