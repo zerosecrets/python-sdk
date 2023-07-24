@@ -27,17 +27,20 @@ jobs:
     needs: [set-commit-hash]
     strategy:
       matrix:
-        python-version: ['3.8', '3.9']
+        python-version: [ '3.11' ]
+        poetry-version: [ '1.5.1' ]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
           ref: ${{ inputs.ref }}
-      - uses: actions/setup-python@v3
+      - uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
-      - uses: abatilo/actions-poetry@v2.1.4
+      - uses: abatilo/actions-poetry@v2
+        with:
+          poetry-version: ${{ matrix.poetry-version }}
       - name: Lint code
         run: |
           poetry install
@@ -48,17 +51,20 @@ jobs:
     needs: [set-commit-hash]
     strategy:
       matrix:
-        python-version: ['3.8', '3.9']
+        python-version: [ '3.11' ]
+        poetry-version: [ '1.5.1' ]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
           ref: ${{ inputs.ref }}
-      - uses: actions/setup-python@v3
+      - uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
-      - uses: abatilo/actions-poetry@v2.1.4
+      - uses: abatilo/actions-poetry@v2
+        with:
+          poetry-version: ${{ matrix.poetry-version }}
       - name: Run tests
         run: |
           poetry install
@@ -69,17 +75,20 @@ jobs:
     needs: [lint, test]
     strategy:
       matrix:
-        python-version: ['3.8', '3.9']
+          python-version: [ '3.11' ]
+          poetry-version: [ '1.5.1' ]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
           ref: ${{ inputs.ref }}
-      - uses: actions/setup-python@v3
+      - uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
-      - uses: abatilo/actions-poetry@v2.1.4
+      - uses: abatilo/actions-poetry@v2
+        with:
+            poetry-version: ${{ matrix.poetry-version }}
       - name: Install deps
         run: poetry install
       - name: Build and publish
