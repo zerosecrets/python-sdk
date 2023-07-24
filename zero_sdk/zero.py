@@ -59,4 +59,4 @@ def zero(*, token: str, pick: List[str], caller_name: Optional[str]) -> ZeroApiC
     assert len(token) > 0, "Zero token is required"
     assert type(pick) is list, "Pick should be a list of strings"
 
-    return ZeroApiClient("https://core.tryzero.com/v1/graphql", token, pick, caller_name)
+    return ZeroApiClient("https://core.tryzero.com/graphql", token, pick, caller_name)
