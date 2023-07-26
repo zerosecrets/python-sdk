@@ -1,7 +1,6 @@
 """Zero SDK for Python"""
 import asyncio
 from typing import List, Dict, Optional
-
 from python_graphql_client import GraphqlClient
 
 
@@ -12,20 +11,19 @@ class ZeroException(Exception):
 class ZeroApiClient:
     """The Zero API"""
 
-    query = """
-        query Secrets($token: String!, $pick: [String!], callerName: String) {
-            secrets(zeroToken: $token, pick: $pick, callerName: $callerName) {
-                name
-
-                fields {
+    def __init__(self, url: str, token: str, pick: List[str], caller_name: Optional[str]):
+        self.query = """
+            query Secrets($token: String!, $pick: [String!], $callerName: String) {
+                secrets(zeroToken: $token, pick: $pick, callerName: $callerName) {
                     name
-                    value
+                    fields {
+                        name
+                        value
+                    }
                 }
             }
-        }
-    """
+        """
 
-    def __init__(self, url: str, token: str, pick: List[str], caller_name: Optional[str]):
         self.client = GraphqlClient(endpoint=url)
         self.variables = {"token": token, "pick": pick, "callerName": caller_name}
 

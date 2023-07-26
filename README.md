@@ -1,26 +1,23 @@
-======
-Zero Python SDK
-======
-Python SDK for `Zero <https://tryzero.com>`_. Provides a clear and simple interface for the secrets manager GraphQL API.
+# Zero Python SDK
 
-Installation
-------------
+Python SDK for [Zero](https://tryzero.com). Provides a clear and simple interface for the secrets manager GraphQL API.
 
-.. code:: sh
+## Installation
 
-    poetry add zero-python-sdk
+```sh
+  poetry add zero-python-sdk
+```
 
-Usage
------
+## Usage
 
-Fetch your vendor secrets by passing your ``zero`` token:
+Fetch your vendor secrets by passing your `zero` token:
 
-.. code:: python
+```python
+import os
+from zero_python_sdk import zero
 
-    import os
-    from zero_sdk import zero
+ZERO_TOKEN = os.getenv("ZERO_TOKEN")
 
-    ZERO_TOKEN = os.getenv("ZERO_TOKEN")
-
-    # {'aws': {'secret': 'value', 'secret2': 'value2'}, 'googleCloud': {...}}
-    print(zero(token=ZERO_TOKEN, pick=["aws", "googleCloud"], caller_name="stagingcluster").fetch())
+# {'aws': {'secret': 'value', 'secret2': 'value2'}, 'googleCloud': {...}}
+print(zero(token=ZERO_TOKEN, pick=["aws", "googleCloud"], caller_name="stagingcluster").fetch())
+```
