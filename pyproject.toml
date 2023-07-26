@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "zero_python_sdk"
-version = "0.2.0"
+version = "0.2.1"
 description = "zero client sdk"
 authors = ["Misha-Otto <michael.zacharov@ottofeller.com>"]
 readme = "README.md"
